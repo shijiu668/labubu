@@ -26,7 +26,7 @@ export async function POST(request) {
 
     // 上传图片到Vercel Blob获得短URL
     const imageBuffer = await image.arrayBuffer()
-    let imageUrl; // 在外部作用域定义变量
+    let imageUrl;
 
     // 🐛 调试：上传图片过程
     console.log('📤 开始上传图片到Vercel Blob...')
@@ -46,10 +46,11 @@ export async function POST(request) {
 
     } catch (uploadError) {
       console.error('❌ 图片上传失败:', uploadError)
-      // 降级方案：使用base64
-      const imageBase64 = Buffer.from(imageBuffer).toString('base64')
-      imageUrl = `data:${image.type};base64,${imageBase64}`
-      console.log('⚠️  使用降级方案 - Base64 URL长度:', imageUrl.length, '字符')
+      console.log('=== ❌ 图片上传失败，终止处理 ===\n')
+      return NextResponse.json(
+        { error: '图片上传失败，请重试', details: uploadError.message },
+        { status: 500 }
+      )
     }
 
     // 准备API请求
@@ -64,13 +65,14 @@ export async function POST(request) {
 
     // 🐛 调试：API密钥状态
     console.log('🔑 API密钥检查:')
-    console.log('  - API密钥状态:', apiKey ? '✅ 已配置' : '❌ 未配置')
-    console.log('  - API密钥前缀:', apiKey ? apiKey.substring(0, 15) + '...' : 'undefined')
+    console.log('  - API密钥状态:', '✅ 已配置')
+    console.log('  - API密钥前缀:', apiKey.substring(0, 15) + '...')
 
-    // 准备API请求体
+    // 准备API请求体 - 严格按照格式：图片URL + 空格 + 提示词
+    const fullPrompt = `${imageUrl} ${prompt}`
     const apiRequestBody = {
       model: 'flux-kontext-pro',
-      prompt: `${imageUrl} ${prompt}`,
+      prompt: fullPrompt,
       size: size
     }
 
@@ -86,8 +88,12 @@ export async function POST(request) {
     console.log('  - 图片尺寸:', apiRequestBody.size)
     console.log('  - 图片URL:', imageUrl)
     console.log('  - 用户提示词:', prompt)
-    console.log('  - 完整提示词长度:', apiRequestBody.prompt.length, '字符')
-    console.log('  - 完整提示词内容:', apiRequestBody.prompt)
+    console.log('  - 完整prompt格式检查:')
+    console.log('    * 图片URL:', imageUrl)
+    console.log('    * 空格分隔符: " "')
+    console.log('    * 用户提示词:', prompt)
+    console.log('    * 最终完整prompt:', fullPrompt)
+    console.log('  - 完整prompt长度:', fullPrompt.length, '字符')
 
     console.log('📦 完整请求体JSON:')
     console.log(JSON.stringify(apiRequestBody, null, 2))
@@ -108,7 +114,7 @@ export async function POST(request) {
         },
         body: JSON.stringify(apiRequestBody)
       })
-      console.log('📡 API调用完成，开始处理响应...')
+      console.log('📡 API调用完成，状态码:', apiResponse.status)
     } catch (fetchError) {
       console.error('❌ API调用异常:', fetchError.message)
       console.error('❌ 详细错误信息:', fetchError)
@@ -131,6 +137,14 @@ export async function POST(request) {
       const errorText = await apiResponse.text()
       console.error('📄 错误响应内容:', errorText)
 
+      // 尝试解析JSON错误信息
+      try {
+        const errorJson = JSON.parse(errorText)
+        console.error('📋 错误JSON:', JSON.stringify(errorJson, null, 2))
+      } catch (e) {
+        console.error('⚠️  错误响应不是JSON格式')
+      }
+
       console.log('=== ❌ API调试信息结束 (失败) ===\n')
       return NextResponse.json(
         { error: 'Image generation failed', details: errorText },
@@ -142,12 +156,25 @@ export async function POST(request) {
     console.log('✅ API调用成功!')
     const result = await apiResponse.json()
 
-    console.log('📋 响应JSON结构:')
+    console.log('📋 完整响应JSON结构:')
     console.log(JSON.stringify(result, null, 2))
 
-    // 提取图片URL
-    const generatedImageUrl = result.data?.[0]?.url || result.imageUrl || result.url || result.image_url
-    console.log('🖼️  生成的图片URL:', generatedImageUrl || 'undefined')
+    // 提取图片URL - 尝试多种可能的字段名
+    const generatedImageUrl = result.data?.[0]?.url ||
+      result.imageUrl ||
+      result.url ||
+      result.image_url ||
+      result.data?.url ||
+      result.images?.[0]?.url
+
+    console.log('🖼️  图片URL提取结果:')
+    console.log('  - result.data[0].url:', result.data?.[0]?.url || 'undefined')
+    console.log('  - result.imageUrl:', result.imageUrl || 'undefined')
+    console.log('  - result.url:', result.url || 'undefined')
+    console.log('  - result.image_url:', result.image_url || 'undefined')
+    console.log('  - result.data.url:', result.data?.url || 'undefined')
+    console.log('  - result.images[0].url:', result.images?.[0]?.url || 'undefined')
+    console.log('  - 最终提取的图片URL:', generatedImageUrl || 'undefined')
 
     // 计算总耗时
     const endTime = Date.now()
@@ -162,7 +189,8 @@ export async function POST(request) {
     })
 
   } catch (error) {
-    console.error('❌ 服务器错误:', error)
+    console.error('❌ 服务器错误:', error.message)
+    console.error('❌ 错误堆栈:', error.stack)
     console.log('=== ❌ 服务器错误调试信息结束 ===\n')
     return NextResponse.json(
       { error: 'Internal server error', details: error.message },
