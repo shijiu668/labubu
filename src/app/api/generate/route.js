@@ -70,6 +70,25 @@ export async function POST(request) {
       })
     })
 
+    console.log('=== 🚀 外部API调用详情 ===')
+    console.log('📤 请求配置:')
+    console.log('  - API地址:', 'https://api.apicore.ai/v1/images/generations')
+    console.log('  - 请求方法: POST')
+    console.log('  - Content-Type: application/json')
+    console.log('  - API密钥状态:', apiKey ? '✅ 已配置' : '❌ 未配置')
+    console.log('  - API密钥前缀:', apiKey ? apiKey.substring(0, 15) + '...' : 'undefined')
+
+    console.log('📋 请求体数据:')
+    console.log('  - 模型:', apiRequestBody.model)
+    console.log('  - 图片尺寸:', apiRequestBody.size)
+    console.log('  - 图片URL:', imageUrl)
+    console.log('  - 用户提示词:', prompt)
+    console.log('  - 完整提示词长度:', apiRequestBody.prompt.length, '字符')
+    console.log('  - 完整提示词内容:', apiRequestBody.prompt)
+
+    console.log('📦 完整请求体JSON:')
+    console.log(JSON.stringify(apiRequestBody, null, 2))
+
     if (!apiResponse.ok) {
       const errorText = await apiResponse.text()
       console.error('API Error:', errorText)
