@@ -47,6 +47,7 @@ export async function POST(request) {
     }
 
     // Prepare the API request
+    // Prepare the API request
     const apiKey = process.env.NEXT_PUBLIC_API_KEY
     if (!apiKey) {
       console.error('API key not found')
@@ -56,27 +57,24 @@ export async function POST(request) {
       )
     }
 
-    // Call the external API
-    const apiResponse = await fetch('https://api.apicore.ai/v1/images/generations', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'flux-kontext-pro',
-        prompt: `${imageUrl} ${prompt}`,
-        size: size
-      })
-    })
+    // 🐛 调试：API密钥状态
+    console.log('🔑 API密钥检查:')
+    console.log('  - API密钥状态:', apiKey ? '✅ 已配置' : '❌ 未配置')
+    console.log('  - API密钥前缀:', apiKey ? apiKey.substring(0, 15) + '...' : 'undefined')
 
+    // 准备API请求体
+    const apiRequestBody = {
+      model: 'flux-kontext-pro',
+      prompt: `${imageUrl} ${prompt}`,
+      size: size
+    }
+
+    // 🐛 调试：准备发送给外部API的数据
     console.log('=== 🚀 外部API调用详情 ===')
     console.log('📤 请求配置:')
     console.log('  - API地址:', 'https://api.apicore.ai/v1/images/generations')
     console.log('  - 请求方法: POST')
     console.log('  - Content-Type: application/json')
-    console.log('  - API密钥状态:', apiKey ? '✅ 已配置' : '❌ 未配置')
-    console.log('  - API密钥前缀:', apiKey ? apiKey.substring(0, 15) + '...' : 'undefined')
 
     console.log('📋 请求体数据:')
     console.log('  - 模型:', apiRequestBody.model)
@@ -88,6 +86,10 @@ export async function POST(request) {
 
     console.log('📦 完整请求体JSON:')
     console.log(JSON.stringify(apiRequestBody, null, 2))
+
+    // 记录开始时间
+    const startTime = Date.now()
+    console.log('⏰ 开始API调用时间:', new Date(startTime).toISOString())
 
     if (!apiResponse.ok) {
       const errorText = await apiResponse.text()
