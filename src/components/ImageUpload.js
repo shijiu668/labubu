@@ -13,21 +13,40 @@ export default function ImageUpload({ onImageGenerated }) {
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState('')
 
-  const onDrop = useCallback((acceptedFiles) => {
-    const file = acceptedFiles[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        setUploadedImage({
-          file,
-          preview: e.target.result,
-          name: file.name
-        })
-        setError('')
+  // 在组件顶部添加一个新的状态来跟踪上传状态
+  const [isUploading, setIsUploading] = useState(false);
+
+  const onDrop = useCallback(async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    if (!file) return;
+
+    const preview = URL.createObjectURL(file);
+    setUploadedImage({ file, preview, name: file.name });
+    setIsUploading(true);
+    setError('');
+
+    try {
+      const response = await fetch(`/api/upload?filename=${encodeURIComponent(file.name)}`, {
+        method: 'POST',
+        body: file,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
       }
-      reader.readAsDataURL(file)
+
+      const newBlob = await response.json();
+      // 在图片状态中存入 Vercel Blob 返回的 URL
+      setUploadedImage(prev => ({ ...prev, blobUrl: newBlob.url }));
+
+    } catch (err) {
+      setError('图片上传失败，请重试。');
+      console.error('Upload error:', err);
+      setUploadedImage(null);
+    } finally {
+      setIsUploading(false);
     }
-  }, [])
+  }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -45,8 +64,9 @@ export default function ImageUpload({ onImageGenerated }) {
   }
 
   const handleGenerate = async () => {
-    if (!uploadedImage || !prompt.trim()) {
-      setError('Please upload an image and enter a description')
+    // 检查图片是否已上传并获得了 blobUrl
+    if (!uploadedImage?.blobUrl || !prompt.trim()) {
+      setError('请上传图片，等待上传完成后输入描述。')
       return
     }
 
@@ -54,16 +74,19 @@ export default function ImageUpload({ onImageGenerated }) {
     setError('')
 
     try {
-      // Convert image to base64 or upload to a temporary storage first
-      const formData = new FormData()
-      formData.append('image', uploadedImage.file)
-      formData.append('prompt', `${uploadedImage.preview} ${prompt}`)
-      formData.append('size', aspectRatio)
-
+      // 发送包含 blobUrl 的 JSON 数据
       const response = await fetch('/api/generate', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          imageUrl: uploadedImage.blobUrl,
+          prompt: prompt,
+          size: aspectRatio,
+        }),
       })
+      // ...
 
       if (!response.ok) {
         throw new Error('Generation failed')
@@ -105,17 +128,16 @@ export default function ImageUpload({ onImageGenerated }) {
       {/* Upload Section */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold text-gray-900">Upload Image</h3>
-        
+
         <motion.div
           {...getRootProps()}
-          className={`upload-area p-8 text-center cursor-pointer transition-all duration-300 ${
-            isDragActive ? 'drag-active' : ''
-          }`}
+          className={`upload-area p-8 text-center cursor-pointer transition-all duration-300 ${isDragActive ? 'drag-active' : ''
+            }`}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
           <input {...getInputProps()} />
-          
+
           {uploadedImage ? (
             <div className="relative">
               <img
@@ -176,11 +198,10 @@ export default function ImageUpload({ onImageGenerated }) {
             <button
               key={ratio.value}
               onClick={() => setAspectRatio(ratio.value)}
-              className={`p-3 rounded-lg border-2 text-sm font-medium transition-all duration-300 ${
-                aspectRatio === ratio.value
-                  ? 'border-pink-400 bg-pink-50 text-pink-700'
-                  : 'border-gray-200 hover:border-pink-200 hover:bg-pink-25'
-              }`}
+              className={`p-3 rounded-lg border-2 text-sm font-medium transition-all duration-300 ${aspectRatio === ratio.value
+                ? 'border-pink-400 bg-pink-50 text-pink-700'
+                : 'border-gray-200 hover:border-pink-200 hover:bg-pink-25'
+                }`}
             >
               {ratio.label}
             </button>
@@ -206,11 +227,10 @@ export default function ImageUpload({ onImageGenerated }) {
       <motion.button
         onClick={handleGenerate}
         disabled={isGenerating || !uploadedImage || !prompt.trim()}
-        className={`w-full btn-primary flex items-center justify-center space-x-2 ${
-          isGenerating || !uploadedImage || !prompt.trim()
-            ? 'opacity-50 cursor-not-allowed'
-            : ''
-        }`}
+        className={`w-full btn-primary flex items-center justify-center space-x-2 ${isGenerating || !uploadedImage || !prompt.trim()
+          ? 'opacity-50 cursor-not-allowed'
+          : ''
+          }`}
         whileHover={!isGenerating ? { scale: 1.02 } : {}}
         whileTap={!isGenerating ? { scale: 0.98 } : {}}
       >
@@ -246,7 +266,7 @@ export default function ImageUpload({ onImageGenerated }) {
                 <span>Download</span>
               </button>
             </div>
-            
+
             <div className="image-display">
               <img
                 src={generatedImage}

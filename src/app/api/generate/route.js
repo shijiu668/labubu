@@ -2,35 +2,26 @@ import { NextResponse } from 'next/server'
 
 export async function POST(request) {
   try {
-    const formData = await request.formData()
-    const image = formData.get('image')
-    const prompt = formData.get('prompt')
-    const size = formData.get('size') || '1:1'
+    // 解析 JSON 请求体
+    const { imageUrl, prompt, size } = await request.json();
 
-    if (!image || !prompt) {
+    if (!imageUrl || !prompt) {
       return NextResponse.json(
-        { error: 'Image and prompt are required' },
+        { error: 'Image URL and prompt are required' },
         { status: 400 }
-      )
+      );
     }
 
-    // First, we need to upload the image to a temporary storage or convert to URL
-    // For this example, we'll create a temporary blob URL
-    const imageBuffer = await image.arrayBuffer()
-    const imageBase64 = Buffer.from(imageBuffer).toString('base64')
-    const imageUrl = `data:${image.type};base64,${imageBase64}`
-
-    // Prepare the API request
-    const apiKey = process.env.NEXT_PUBLIC_API_KEY
+    // 准备 API 请求
+    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
     if (!apiKey) {
-      console.error('API key not found')
+      console.error('API key not found');
       return NextResponse.json(
         { error: 'API configuration error' },
         { status: 500 }
-      )
+      );
     }
-
-    // Call the external API
+    console.log(`[调试日志] 发送给API的Prompt: ${imageUrl} ${prompt}`);
     const apiResponse = await fetch('https://api.apicore.ai/v1/images/generations', {
       method: 'POST',
       headers: {
@@ -40,9 +31,10 @@ export async function POST(request) {
       body: JSON.stringify({
         model: 'flux-kontext-pro',
         prompt: `${imageUrl} ${prompt}`,
-        size: size
+        size: size || '1:1'
       })
-    })
+    });
+    // ...
 
     if (!apiResponse.ok) {
       const errorText = await apiResponse.text()
@@ -54,7 +46,7 @@ export async function POST(request) {
     }
 
     const result = await apiResponse.json()
-    
+
     // The API should return the generated image URL
     // You may need to adjust this based on the actual API response structure
     return NextResponse.json({
