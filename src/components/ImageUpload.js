@@ -246,37 +246,6 @@ export default function ImageUpload({ onImageGenerated }) {
           </>
         )}
       </motion.button>
-
-      {/* Generated Image Display */}
-      <AnimatePresence>
-        {generatedImage && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="space-y-4"
-          >
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-900">Generated Image</h3>
-              <button
-                onClick={downloadImage}
-                className="btn-secondary flex items-center space-x-2"
-              >
-                <Download className="w-4 h-4" />
-                <span>Download</span>
-              </button>
-            </div>
-
-            <div className="image-display">
-              <img
-                src={generatedImage}
-                alt="Generated"
-                className="generated-image"
-              />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   )
 }

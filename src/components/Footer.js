@@ -14,21 +14,13 @@ export default function Footer() {
     ],
     'Company': [
       { name: 'About Us', href: '/about' },
-      { name: 'Blog', href: '/blog' },
-      { name: 'Careers', href: '/careers' },
-      { name: 'Contact', href: '/contact' },
     ],
     'Resources': [
       { name: 'Help Center', href: '/help' },
-      { name: 'API Documentation', href: '/docs' },
-      { name: 'Community', href: '/community' },
-      { name: 'Tutorials', href: '/tutorials' },
     ],
     'Legal': [
       { name: 'Privacy Policy', href: '/privacy' },
       { name: 'Terms of Service', href: '/terms' },
-      { name: 'Cookie Policy', href: '/cookies' },
-      { name: 'DMCA', href: '/dmca' },
     ],
   }
 
@@ -57,21 +49,6 @@ export default function Footer() {
               Transform your imagination into stunning Labubu artwork with our cutting-edge AI technology. 
               Create, customize, and share your unique creations with the world.
             </p>
-
-            {/* Social Links */}
-            <div className="flex space-x-4">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.href}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 bg-white rounded-lg border border-pink-100 flex items-center justify-center text-gray-600 hover:text-pink-600 hover:border-pink-200 hover:shadow-md transition-all duration-300"
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
-            </div>
           </div>
 
           {/* Links Sections */}
@@ -94,26 +71,6 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Newsletter Section */}
-        <div className="bg-gradient-to-r from-pink-400 to-purple-500 rounded-2xl p-8 mb-12">
-          <div className="max-w-2xl mx-auto text-center text-white">
-            <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
-            <p className="mb-6 opacity-90">
-              Get the latest updates on new features, tips, and creative inspiration delivered to your inbox.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-white/30"
-              />
-              <button className="px-6 py-3 bg-white text-pink-600 font-semibold rounded-lg hover:bg-gray-50 transition-colors duration-300">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-
         {/* Bottom Section */}
         <div className="border-t border-pink-200 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
@@ -124,16 +81,7 @@ export default function Footer() {
             </div>
             
             <div className="text-gray-600 text-sm">
-              © 2024 Labubu Maker. All rights reserved.
-            </div>
-            
-            <div className="flex items-center space-x-6 text-sm text-gray-600">
-              <Link href="/status" className="hover:text-pink-600 transition-colors">
-                Status
-              </Link>
-              <Link href="/sitemap" className="hover:text-pink-600 transition-colors">
-                Sitemap
-              </Link>
+              © 2025 Labubu Maker. All rights reserved.
             </div>
           </div>
         </div>

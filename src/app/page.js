@@ -3,8 +3,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles, Zap, Image as ImageIcon, Scissors, User } from 'lucide-react'
-import StackingCards from '../components/StackingCards'
+import {
+  ArrowRight, Sparkles, Zap, Image as ImageIcon, Scissors, User,
+  Monitor, Smartphone, Wand, ShieldCheck, Heart, Layers, Paintbrush
+} from 'lucide-react';
+import StackingCards from '../components/StackingCards';
 
 export default function HomePage() {
   const features = [
@@ -140,9 +143,9 @@ export default function HomePage() {
                     <div className="w-8 h-8 bg-purple-200 rounded-full border-2 border-white"></div>
                     <div className="w-8 h-8 bg-blue-200 rounded-full border-2 border-white"></div>
                   </div>
-                  <span>10,000+ Happy Users</span>
+                  <span>Free to Try Now</span>
                 </div>
-                <div>⭐ 4.9/5 Rating</div>
+                <div>⭐ Unleash Your Inner Artist</div>
               </div>
             </motion.div>
 
@@ -249,179 +252,161 @@ export default function HomePage() {
       {/* SEO Content Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 gradient-bg">
         <div className="max-w-7xl mx-auto">
-          <div className="seo-section">
-            {/* Main SEO Header */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-gradient mb-6">
-                Why Choose Labubu-Maker?
+          {/* === START of Visually Enhanced SEO Content Section === */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="space-y-16" // 增加了分区之间的垂直间距
+          >
+            {/* Section Header */}
+            <div className="text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                The Ultimate Labubu Maker for Your Creative Vision
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Discover the ultimate AI-powered Labubu creative platform that transforms your imagination into stunning digital artwork
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Welcome to the definitive platform where your imagination meets artificial intelligence. Our powerful labubu ai generator is engineered to turn your concepts into stunning visual realities, from a simple labubu image to a complex, detailed scene.
               </p>
-            </motion.div>
+            </div>
 
-            {/* SEO Content Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="seo-card seo-icon-card"
-              >
+            {/* --- Wallpaper Section --- */}
+            {/* This layout uses a full-width featured card and two smaller cards below to add vertical length */}
+            <div className="space-y-8">
+              {/* Featured Card: Main Wallpaper */}
+              <div className="seo-card animate-pulse-glow p-8">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
+                    <Wand className="w-6 h-6 text-pink-500" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900">Craft the Perfect Labubu Wallpaper</h3>
+                </div>
+                <p className="text-gray-700">
+                  This is where your journey begins. Use our advanced tools to create the perfect labubu wallpaper that expresses your unique style. We provide the options, you provide the vision.
+                </p>
+              </div>
+
+              {/* Sub-cards for wallpaper types */}
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="seo-gradient-card p-6">
+                  <div className="flex items-center gap-4 mb-3">
+                    <Monitor className="w-8 h-8 text-purple-600" />
+                    <h4 className="text-xl font-semibold text-purple-800">Stunning Labubu Wallpaper 4K</h4>
+                  </div>
+                  <p className="text-gray-700">
+                    Elevate your screens with unparalleled clarity. Our labubu ai generator produces breathtaking labubu wallpaper 4k resolutions, ensuring every detail is crisp and vibrant. Perfect for high-end monitors and retina displays where quality matters most. Create your dream labubu wallpaper today.
+                  </p>
+                </div>
+                <div className="seo-gradient-card p-6">
+                  <div className="flex items-center gap-4 mb-3">
+                    <Smartphone className="w-8 h-8 text-blue-600" />
+                    <h4 className="text-xl font-semibold text-blue-800">Personalized Labubu Wallpaper iPhone</h4>
+                  </div>
+                  <p className="text-gray-700">
+                    Your phone is your most personal device, and it deserves a unique background. Generate a custom labubu wallpaper iphone with perfect 9:16 aspect ratios. Our tool ensures your creation looks flawless on any mobile screen, providing a truly personalized touch.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* --- Image & Photo Section --- */}
+            <div className="text-center mt-20">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Generate High-Quality Labubu Images & Photos
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Go beyond wallpapers. Our labubu maker is a comprehensive tool for creating all types of high-fidelity labubu photos and graphics for your projects.
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-5 gap-8">
+              {/* Main Feature Card on the Left */}
+              <div className="lg:col-span-3 seo-icon-card p-8 h-full flex flex-col">
                 <div className="relative z-10">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Advanced AI Technology</h3>
-                  <p className="text-gray-600 mb-4">
-                    Our labubu-maker platform utilizes cutting-edge artificial intelligence algorithms to generate
-                    high-quality, creative artwork. The AI-powered Labubu creative platform ensures every creation
-                    meets professional standards while maintaining the adorable essence of Labubu characters.
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                      <Layers className="w-6 h-6 text-green-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900">Professional Labubu Figure Image PNG Transparent Background</h3>
+                  </div>
+                  <p className="text-gray-700 mb-4">
+                    Need a clean graphic for your project? Our most powerful feature allows you to generate a labubu figure image png transparent background. The AI intelligently isolates the character, providing a professional-grade cutout perfect for graphic design, stickers, or layering onto other images.
                   </p>
-                  <p className="text-gray-600">
-                    Experience seamless image generation with our state-of-the-art machine learning models that
-                    understand Labubu aesthetics and style preferences.
+                  <p className="text-gray-700">
+                    This is essential for creators who need a versatile labubu image. Stop struggling with manual background removal and let our labubu ai generator do the work for you. Get a perfect labubu figure image png transparent background every time.
                   </p>
                 </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="seo-gradient-card"
-              >
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Multiple Creative Tools</h3>
-                <p className="text-gray-600 mb-4">
-                  The Labubu-Maker platform offers four distinct creative tools designed for different artistic needs.
-                  From wallpaper generation to travel scene creation, our comprehensive suite covers all aspects of
-                  Labubu artwork production.
-                </p>
-                <div className="space-y-2">
-                  <p className="text-gray-600"><strong>• Wallpaper Creator:</strong> Generate stunning backgrounds</p>
-                  <p className="text-gray-600"><strong>• Travel Scene Generator:</strong> Create adventure artwork</p>
-                  <p className="text-gray-600"><strong>• Background Remover:</strong> Professional editing tools</p>
-                  <p className="text-gray-600"><strong>• Pose Transformer:</strong> Dynamic character positioning</p>
+              </div>
+              {/* Two Stacked Cards on the Right */}
+              <div className="lg:col-span-2 space-y-8">
+                <div className="glass-effect p-6 rounded-2xl border border-white/20 shadow-lg">
+                  <div className="flex items-center gap-4 mb-3">
+                    <ImageIcon className="w-7 h-7 text-gray-800" />
+                    <h3 className="text-xl font-bold text-gray-900">Creating Flawless Labubu Images</h3>
+                  </div>
+                  <p className="text-gray-700">
+                    Generate truly unique labubu images from a simple text description. Whether you need a character in a specific pose, a new outfit, or an imaginative scene, our labubu maker can create it. Every labubu image is rendered with attention to detail and artistic flair.
+                  </p>
                 </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="seo-card decorative-wave"
-              >
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">User-Friendly Interface</h3>
-                <p className="text-gray-600 mb-4">
-                  Our AI-powered Labubu creative platform features an intuitive design that makes artwork creation
-                  accessible to everyone. Whether you're a professional artist or a Labubu enthusiast, our platform
-                  provides the tools you need.
-                </p>
-                <p className="text-gray-600">
-                  Simple drag-and-drop functionality, real-time preview, and one-click generation make the creative
-                  process enjoyable and efficient.
-                </p>
-              </motion.div>
+                <div className="seo-card p-6">
+                  <div className="flex items-center gap-4 mb-3">
+                    <Heart className="w-7 h-7 text-rose-500" />
+                    <h3 className="text-xl font-bold text-gray-900">Lifelike Labubu Photos with AI</h3>
+                  </div>
+                  <p className="text-gray-700">
+                    Explore the potential of AI to generate photorealistic labubu photos. Place Labubu in real-world scenes, create dynamic lighting, and produce a stunning labubu picture that looks like it was captured by a professional photographer. Our platform is the key to unlocking next-level labubu photos.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            {/* Additional SEO Content */}
-            <div className="grid md:grid-cols-2 gap-12 mb-16">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="space-y-6"
-              >
-                <h2 className="text-3xl font-bold text-gray-900">How Labubu-Maker Works</h2>
 
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-gray-800">Step 1: Upload Your Image</h3>
-                  <p className="text-gray-600">
-                    Begin your creative journey by uploading any image to our labubu-maker platform. Our AI system
-                    accepts various image formats and automatically optimizes them for processing. The intelligent
-                    image recognition ensures compatibility with all Labubu-themed transformations.
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-gray-800">Step 2: Describe Your Vision</h3>
-                  <p className="text-gray-600">
-                    Use natural language to describe how you want to transform your image. Our AI-powered Labubu
-                    creative platform understands complex descriptions and artistic preferences, allowing for
-                    precise control over the final output.
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-gray-800">Step 3: Generate and Download</h3>
-                  <p className="text-gray-600">
-                    Click generate and watch as our advanced algorithms create your personalized Labubu artwork.
-                    The process typically takes seconds, and you can download your creation in high resolution
-                    immediately after generation.
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="space-y-6"
-              >
-                <h2 className="text-3xl font-bold text-gray-900">Benefits of AI-Powered Creation</h2>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-gray-800">Professional Quality Results</h3>
-                  <p className="text-gray-600">
-                    Every image generated through our labubu-maker platform meets professional standards. The AI
-                    technology ensures consistent quality, proper proportions, and artistic coherence in every creation.
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-gray-800">Time-Efficient Workflow</h3>
-                  <p className="text-gray-600">
-                    Traditional artwork creation can take hours or days. Our AI-powered Labubu creative platform
-                    reduces this time to seconds while maintaining artistic integrity and creative freedom.
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-gray-800">Unlimited Creative Possibilities</h3>
-                  <p className="text-gray-600">
-                    With our advanced AI technology, there are no limits to your creativity. Experiment with different
-                    styles, combine multiple concepts, and explore artistic directions that would be difficult to
-                    achieve through traditional methods.
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Final SEO Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="seo-card text-center"
-            >
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Start Creating with Labubu-Maker Today</h2>
-              <p className="text-lg text-gray-600 mb-8 max-w-4xl mx-auto">
-                Join thousands of creators who have discovered the power of our AI-powered Labubu creative platform.
-                Whether you're creating wallpapers, travel scenes, removing backgrounds, or transforming poses,
-                labubu-maker provides the tools and technology you need to bring your imagination to life.
-                Experience the future of digital art creation with our comprehensive, user-friendly platform
-                designed specifically for Labubu enthusiasts and professional creators alike.
+            {/* --- Background Section --- */}
+            <div className="text-center mt-20">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Customize Your <span className="text-gradient">Labubu Background</span>
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                The background sets the mood. With our tools, you have complete control over creating the perfect labubu background wallpaper that tells a story.
               </p>
-              <Link href="/labubu-wallpaper" className="btn-primary inline-flex items-center">
-                Start Creating Now
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </motion.div>
-          </div>
+            </div>
+            {/* This section uses a list-based style for more visual variety */}
+            <div className="seo-card p-8">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Design Your Ideal Labubu Background</h3>
+                  <p className="text-gray-700">
+                    Don't settle for pre-made scenes. With our labubu maker, you can design a custom labubu background from scratch. Describe a magical forest, a futuristic cityscape, or a cozy cafe, and watch the AI create a rich and detailed environment for your character.
+                  </p>
+                </div>
+                <div className="bg-pink-50 border-l-4 border-pink-400 p-6 rounded-r-lg">
+                  <h4 className="font-bold text-gray-800 mb-3">Key Features:</h4>
+                  <ul className="space-y-3">
+                    <li className="flex items-center gap-3"><ShieldCheck className="w-5 h-5 text-pink-500 flex-shrink-0" /><span>Create a seamless labubu background wallpaper.</span></li>
+                    <li className="flex items-center gap-3"><ShieldCheck className="w-5 h-5 text-pink-500 flex-shrink-0" /><span>AI-powered blending for natural results.</span></li>
+                    <li className="flex items-center gap-3"><ShieldCheck className="w-5 h-5 text-pink-500 flex-shrink-0" /><span>Generate beautiful and immersive labubu picture compositions.</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Final CTA Card */}
+            <div className="seo-card text-center mt-20 decorative-wave overflow-hidden p-8 md:p-12 relative">
+              <div className="absolute top-4 right-4 animate-float">
+                <div className="w-16 h-16 bg-yellow-100/50 rounded-full flex items-center justify-center">
+                  <Zap className="w-8 h-8 text-yellow-400" />
+                </div>
+              </div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Start Creating with the Best Labubu Maker</h2>
+              <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                Join thousands of fans who use our labubu ai generator to create incredible labubu images. From a custom labubu wallpaper iphone design to a high-resolution labubu wallpaper 4k for your desktop, our platform has you covered. Your next masterpiece is just a description away.
+              </p>
+              <a href="/labubu-wallpaper" className="btn-primary animate-pulse-glow">
+                Create Your First Wallpaper
+              </a>
+            </div>
+
+          </motion.section>
+          {/* === END of Visually Enhanced SEO Content Section === */}
         </div>
       </section>
     </div>
