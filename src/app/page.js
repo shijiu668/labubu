@@ -14,7 +14,13 @@ export default function HomePage() {
       description: 'Create stunning Labubu-themed wallpapers for your devices with AI-powered customization.',
       icon: <ImageIcon className="w-8 h-8" />,
       link: '/labubu-wallpaper',
-      gradient: 'from-pink-400 to-rose-400'
+      gradient: 'from-pink-400 to-rose-400',
+      images: [ // +++ 添加这个属性 +++
+        '/images/gallery/labubu-wallpaper-1.jpg',
+        '/images/gallery/labubu-wallpaper-2.jpg',
+        '/images/gallery/labubu-wallpaper-3.jpg',
+        '/images/gallery/labubu-wallpaper-4.jpg'
+      ]
     },
     {
       id: 'labubu-travels',
@@ -22,7 +28,13 @@ export default function HomePage() {
       description: 'Generate amazing travel scenes featuring your favorite Labubu characters in exotic locations.',
       icon: <Sparkles className="w-8 h-8" />,
       link: '/labubu-travels',
-      gradient: 'from-purple-400 to-pink-400'
+      gradient: 'from-purple-400 to-pink-400',
+      images: [ // +++ 添加这个属性 +++
+        '/images/gallery/labubu-travel-1.jpg',
+        '/images/gallery/labubu-travel-2.jpg',
+        '/images/gallery/labubu-travel-3.jpg',
+        '/images/gallery/labubu-travel-4.jpg'
+      ]
     },
     {
       id: 'remove-background',
@@ -30,7 +42,13 @@ export default function HomePage() {
       description: 'Effortlessly remove backgrounds from your Labubu images with precision AI technology.',
       icon: <Scissors className="w-8 h-8" />,
       link: '/remove-background',
-      gradient: 'from-blue-400 to-purple-400'
+      gradient: 'from-blue-400 to-purple-400',
+      images: [ // +++ 添加这个属性 +++
+        '/images/gallery/labubu-remove-bg-1.jpg',
+        '/images/gallery/labubu-remove-bg-2.jpg',
+        '/images/gallery/labubu-remove-bg-3.jpg', // 使用其他图片作为补充
+        '/images/gallery/labubu-remove-bg-4.jpg'
+      ]
     },
     {
       id: 'pose-swap',
@@ -38,10 +56,34 @@ export default function HomePage() {
       description: 'Transform Labubu poses and expressions to create unique and personalized artwork.',
       icon: <User className="w-8 h-8" />,
       link: '/pose-swap',
-      gradient: 'from-green-400 to-blue-400'
+      gradient: 'from-green-400 to-blue-400',
+      images: [ // +++ 添加这个属性 +++
+        '/images/gallery/labubu-pose-swap-1.jpg',
+        '/images/gallery/labubu-pose-swap-2.jpg',
+        '/images/gallery/labubu-pose-swap-3.jpg', // 使用其他图片作为补充
+        '/images/gallery/labubu-pose-swap-4.jpg'
+      ]
     }
   ]
 
+  const galleryImages = [
+    { src: '/images/gallery/labubu-travel-1.jpg', alt: 'Labubu traveling in a fantasy forest' },
+    { src: '/images/gallery/labubu-wallpaper-1.jpg', alt: 'A cute Labubu-themed wallpaper' },
+    { src: '/images/gallery/labubu-pose-swap-1.jpg', alt: 'Labubu with a swapped, cheerful pose' },
+    { src: '/images/gallery/labubu-remove-bg-1.jpg', alt: 'Labubu with background removed' },
+    { src: '/images/gallery/labubu-travel-2.jpg', alt: 'Labubu on a sunny beach' },
+    { src: '/images/gallery/labubu-wallpaper-2.jpg', alt: 'A dark-themed, cool Labubu wallpaper' },
+    { src: '/images/gallery/labubu-pose-swap-2.jpg', alt: 'A dancing Labubu pose' },
+    { src: '/images/gallery/labubu-remove-bg-2.jpg', alt: 'A clean-cut Labubu image' },
+    { src: '/images/gallery/labubu-travel-3.jpg', alt: 'Labubu in a futuristic city' },
+    { src: '/images/gallery/labubu-wallpaper-3.jpg', alt: 'A minimalist Labubu wallpaper design' },
+    { src: '/images/gallery/labubu-travel-4.jpg', alt: 'Labubu exploring ancient ruins' },
+    { src: '/images/gallery/labubu-wallpaper-4.jpg', alt: 'A vibrant, colorful Labubu wallpaper' },
+    { src: '/images/gallery/1.jpg', alt: 'A vibrant, colorful Labubu wallpaper' },
+    { src: '/images/gallery/2.jpg', alt: 'A vibrant, colorful Labubu wallpaper' },
+    { src: '/images/gallery/3.jpg', alt: 'A vibrant, colorful Labubu wallpaper' },
+    { src: '/images/gallery/4.jpg', alt: 'A vibrant, colorful Labubu wallpaper' }
+  ];
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -105,6 +147,7 @@ export default function HomePage() {
             </motion.div>
 
             {/* Right Content - Showcase */}
+            {/* Right Content - Showcase */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -113,20 +156,35 @@ export default function HomePage() {
             >
               <div className="relative grid grid-cols-2 gap-4">
                 <div className="space-y-4">
-                  <div className="bg-gradient-to-br from-pink-100 to-pink-200 rounded-2xl p-8 aspect-square flex items-center justify-center animate-float">
-                    <div className="text-6xl">🎨</div>
-                  </div>
+                  {/* +++ 左上角已被替换为真实图片 +++ */}
+                  <Image
+                    src="/images/gallery/5.jpg"
+                    alt="Labubu Wallpaper Showcase"
+                    width={300}
+                    height={300}
+                    className="rounded-2xl shadow-xl object-cover aspect-square animate-float"
+                  />
+
+                  {/* 左下角的占位符 (保持不变) */}
                   <div className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl p-6 aspect-[4/3] flex items-center justify-center">
                     <div className="text-4xl">✨</div>
                   </div>
                 </div>
                 <div className="space-y-4 pt-8">
+                  {/* 右上角的占位符 (保持不变) */}
                   <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-6 aspect-[4/3] flex items-center justify-center">
                     <div className="text-4xl">🌟</div>
                   </div>
-                  <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-2xl p-8 aspect-square flex items-center justify-center animate-float" style={{ animationDelay: '1s' }}>
-                    <div className="text-6xl">🎭</div>
-                  </div>
+
+                  {/* +++ 右下角已被替换为真实图片 +++ */}
+                  <Image
+                    src="/images/gallery/6.jpg"
+                    alt="Labubu Travel Showcase"
+                    width={300}
+                    height={300}
+                    className="rounded-2xl shadow-xl object-cover aspect-square animate-float"
+                    style={{ animationDelay: '1s' }}
+                  />
                 </div>
               </div>
 
@@ -158,28 +216,33 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3, 4, 5, 6].map((item, index) => (
+          {/* --- 从这里开始，用下面的代码完全替换掉您原来的 div --- */}
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+            {galleryImages.map((image, index) => (
               <motion.div
-                key={item}
+                key={image.src}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="group relative bg-gray-100 rounded-2xl aspect-square overflow-hidden card-hover"
+                className="group relative block overflow-hidden rounded-xl"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-pink-200 via-purple-200 to-blue-200 opacity-70"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-6xl opacity-50">🎨</div>
-                </div>
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="btn-secondary">View Details</button>
-                  </div>
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={500}
+                  height={500}
+                  className="w-full h-auto object-cover card-hover"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-end p-4">
+                  <p className="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {image.alt}
+                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
+          {/* --- 替换结束 --- */}
         </div>
       </section>
 

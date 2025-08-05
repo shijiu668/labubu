@@ -1,17 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   images: {
-    domains: ['oss.ffire.cc', 'api.apicore.ai'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'api.apicore.ai',
       },
+      {
+        protocol: 'https',
+        hostname: 'delivery-us1.bfl.ai',
+      },
+      {
+        protocol: 'https',
+        hostname: '4kubhx8quxsn2fbc.public.blob.vercel-storage.com',
+      }
     ],
   },
 }
-
-module.exports = nextConfig

@@ -12,6 +12,16 @@ export async function POST(request) {
       );
     }
 
+    const sizeMap = {
+      '1:1': '1024x1024',
+      '16:9': '1344x768',
+      '9:16': '768x1344',
+      '4:3': '1152x896',
+      '3:4': '896x1152',
+      '21:9': '1536x640'
+    };
+    const apiSize = sizeMap[size] || '1024x1024';
+
     // 准备 API 请求
     const apiKey = process.env.NEXT_PUBLIC_API_KEY;
     if (!apiKey) {
@@ -31,14 +41,17 @@ export async function POST(request) {
       body: JSON.stringify({
         model: 'flux-kontext-pro',
         prompt: `${imageUrl} ${prompt}`,
-        size: size || '1:1'
+        size: apiSize
       })
     });
-    // ...
 
     if (!apiResponse.ok) {
       const errorText = await apiResponse.text()
-      console.error('API Error:', errorText)
+      console.error(`--- [API返回错误] ---
+      - 时间: ${new Date().toISOString()}
+      - 前端传来的尺寸(size): ${size}
+      - API返回的原始错误信息: ${errorText}
+      ---------------------------------`);
       return NextResponse.json(
         { error: 'Image generation failed' },
         { status: apiResponse.status }
@@ -46,6 +59,13 @@ export async function POST(request) {
     }
 
     const result = await apiResponse.json()
+
+    // +++ 这是添加的成功日志 +++
+    console.log(`--- [API返回成功] ---
+    - 时间: ${new Date().toISOString()}
+    - 前端传লেই尺寸(size): ${size}
+    - API返回的完整数据结构: ${JSON.stringify(result, null, 2)}
+    ---------------------------------`);
 
     // The API should return the generated image URL
     // You may need to adjust this based on the actual API response structure

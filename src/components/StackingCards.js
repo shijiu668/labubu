@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import Image from 'next/image'
 
 export default function StackingCards({ features }) {
     const containerRef = useRef(null)
@@ -103,14 +104,15 @@ function Card({ feature, progress, range, index, total }) {
                         transition={{ duration: 0.8, delay: 0.4 }}
                         className="relative"
                     >
+                        {/* +++ 从这里开始，用下面的代码完全替换掉您原来的 div.relative.grid +++ */}
                         <div className="relative grid grid-cols-2 gap-4">
                             <div className="space-y-4">
-                                <div className={`bg-gradient-to-br ${feature.gradient} opacity-20 rounded-2xl aspect-[4/3] animate-pulse`}></div>
-                                <div className={`bg-gradient-to-br ${feature.gradient} opacity-30 rounded-2xl aspect-square`}></div>
+                                <Image src={feature.images[0]} alt={feature.title} width={300} height={400} className="rounded-2xl shadow-lg object-cover aspect-[3/4]" />
+                                <Image src={feature.images[2]} alt={feature.title} width={300} height={400} className="rounded-2xl shadow-lg object-cover aspect-[3/4]" />
                             </div>
                             <div className="space-y-4 pt-8">
-                                <div className={`bg-gradient-to-br ${feature.gradient} opacity-25 rounded-2xl aspect-square`}></div>
-                                <div className={`bg-gradient-to-br ${feature.gradient} opacity-35 rounded-2xl aspect-[4/3] animate-pulse`} style={{ animationDelay: '1s' }}></div>
+                                <Image src={feature.images[1]} alt={feature.title} width={300} height={400} className="rounded-2xl shadow-lg object-cover aspect-[3/4]" />
+                                <Image src={feature.images[3]} alt={feature.title} width={300} height={400} className="rounded-2xl shadow-lg object-cover aspect-[3/4]" />
                             </div>
                         </div>
 
