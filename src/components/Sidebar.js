@@ -3,11 +3,11 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Image as ImageIcon, MapPin, Scissors, User, ChevronRight } from 'lucide-react'
+import { Image as ImageIcon, MapPin, Scissors, User, Gamepad2, ChevronRight } from 'lucide-react'
 
 export default function Sidebar() {
   const pathname = usePathname()
-  
+
   const menuItems = [
     {
       name: 'Labubu Wallpaper',
@@ -32,6 +32,12 @@ export default function Sidebar() {
       href: '/pose-swap',
       icon: <User className="w-5 h-5" />,
       description: 'Transform poses'
+    },
+    {
+      name: 'Clicker Game',
+      href: '/labubu-clicker',
+      icon: <Gamepad2 className="w-5 h-5" />,
+      description: 'Play & have fun'
     }
   ]
 
@@ -46,7 +52,7 @@ export default function Sidebar() {
         <nav className="space-y-2">
           {menuItems.map((item) => {
             const isActive = pathname === item.href
-            
+
             return (
               <Link key={item.href} href={item.href}>
                 <motion.div
@@ -55,11 +61,10 @@ export default function Sidebar() {
                 >
                   <div className="flex items-center justify-between w-full">
                     <div className="flex items-center space-x-3">
-                      <div className={`p-2 rounded-lg transition-colors ${
-                        isActive 
-                          ? 'bg-pink-100 text-pink-600' 
+                      <div className={`p-2 rounded-lg transition-colors ${isActive
+                          ? 'bg-pink-100 text-pink-600'
                           : 'bg-gray-100 text-gray-600 group-hover:bg-pink-50 group-hover:text-pink-500'
-                      }`}>
+                        }`}>
                         {item.icon}
                       </div>
                       <div>
@@ -69,9 +74,8 @@ export default function Sidebar() {
                         </div>
                       </div>
                     </div>
-                    <ChevronRight className={`w-4 h-4 transition-transform ${
-                      isActive ? 'text-pink-600 rotate-90' : 'text-gray-400 group-hover:text-pink-500'
-                    }`} />
+                    <ChevronRight className={`w-4 h-4 transition-transform ${isActive ? 'text-pink-600 rotate-90' : 'text-gray-400 group-hover:text-pink-500'
+                      }`} />
                   </div>
                 </motion.div>
               </Link>

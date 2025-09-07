@@ -23,17 +23,17 @@ export default function Navbar() {
     { name: 'Travels', href: '/labubu-travels' },
     { name: 'Background', href: '/remove-background' },
     { name: 'Pose Swap', href: '/pose-swap' },
+    { name: 'Clicker Game', href: '/labubu-clicker' },
   ]
 
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-pink-100' 
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-pink-100'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
